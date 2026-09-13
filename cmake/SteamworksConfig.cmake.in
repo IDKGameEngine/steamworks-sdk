@@ -1,0 +1,27 @@
+@PACKAGE_INIT@
+
+set_and_check(
+    Steamworks_INCLUDE_DIR
+    "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_INCLUDEDIR@"
+)
+
+set_and_check(
+    Steamworks_LIBRARY
+    "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@/libsteam_api.so"
+)
+
+add_library(
+    Steamworks::steam_api SHARED IMPORTED
+)
+
+set_target_properties(
+    Steamworks::steam_api PROPERTIES
+    IMPORTED_LOCATION "${Steamworks_LIBRARY}"
+)
+
+include("${CMAKE_CURRENT_LIST_DIR}/SteamworksTargets.cmake")
+
+set_property(
+    TARGET Steamworks::Steamworks
+    APPEND PROPERTY INTERFACE_LINK_LIBRARIES Steamworks::steam_api
+)
