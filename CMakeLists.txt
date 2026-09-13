@@ -9,6 +9,14 @@ set(STEAMWORKS_SDK_DIR "${CMAKE_CURRENT_SOURCE_DIR}/sdk")
 set(STEAMWORKS_LIBRARY "${STEAMWORKS_SDK_DIR}/redistributable_bin/linux64/libsteam_api.so")
 set(STEAMWORKS_INCLUDE_DIR "${STEAMWORKS_SDK_DIR}/public")
 
+execute_process(
+    COMMAND bash "${CMAKE_CURRENT_SOURCE_DIR}/unpack.sh"
+    RESULT_VARIABLE SCRIPT_RETURN_CODE
+    OUTPUT_VARIABLE SCRIPT_OUTPUT
+    ERROR_VARIABLE SCRIPT_ERROR
+)
+message(STATUS "Script Output: ${SCRIPT_OUTPUT}")
+
 # Build/install interface target
 # ---------------------------------------------------------------------------
 add_library(Steamworks INTERFACE)
